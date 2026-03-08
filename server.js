@@ -1,16 +1,15 @@
 const express = require('express');
 const app = express(); //Calling express as a function sets up server
+const userRouter = require('.routes/users');
+const wordRouter = require('./routes/words');
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
+app.use('/users', userRouter);
+app.user('/words', wordRouter);
 app.get('/',
 (req, res)=>{
-console.log('Here');
-res.render('index', {userName: "George"});
+    console.log('Here');
+    res.render('index', {userName: "George"});
 });
-app.get('/users', (req, res)=>{
-res.send('User List');
-});
-app.get('/users/new', (req, res)=>{
-res.send('User New Form');
-});
+
 app.listen(3030);
