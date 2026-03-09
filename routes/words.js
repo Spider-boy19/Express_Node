@@ -12,7 +12,12 @@ router.get('/wotd', async (req, res)=>{
      //Do something with that function up here
 });
 
-module.exports = router;
+router.get('/allwords', async (req, res)=>{
+    let allwords = await getEveryWordFromDictinary();
+    let [word, part, definition] = allwords;
+     res.render('allwords', {word:word, part:part, definition:definition});
+
+});
 
 let getWordFromDictinary = async ()=>{
     try{
@@ -28,3 +33,23 @@ let getWordFromDictinary = async ()=>{
         console.log("there was an error reading the file", err);
     }
 };
+
+let getEveryWordFromDictinary = async()=>{
+    try{
+        const data = await readFile('resorces/allwords.txt', 'utf8');
+        let lines = data.split('\n');
+        let allwords = [];
+
+        for(let i=0; i < lines.length; i++){
+            let allwords = line.split('\t');
+            console.log(allwords);
+        }
+        return allwords;
+        }
+    catch(err){
+        console.log("there was an error reading the file", err);
+    }
+};
+
+
+module.exports = router;

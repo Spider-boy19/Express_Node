@@ -10,6 +10,7 @@ app.use('/users', userRouter);
 
 app.use('/words', wordRouter);
 
+
 app.get('/',
 (req, res)=>{
     console.log('Here');
