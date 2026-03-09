@@ -14,8 +14,8 @@ router.get('/wotd', async (req, res)=>{
 
 router.get('/allwords', async (req, res)=>{
     let allwords = await getEveryWordFromDictinary();
-    let [word, part, definition] = allwords;
-     res.render('allwords', {word:word, part:part, definition:definition});
+
+     res.render('allwords', {allwords});
 
 });
 
@@ -41,8 +41,17 @@ let getEveryWordFromDictinary = async()=>{
         let allwords = [];
 
         for(let i=0; i < lines.length; i++){
-            let allwords = line.split('\t');
-            console.log(allwords);
+            let line = lines[i];
+
+            if (line.trim() === "") continue;
+
+            let[word, part, definition] = line.split('\t');
+
+            allwords.push({
+                word: word,
+                part: part,
+                definition: definition
+            });
         }
         return allwords;
         }
